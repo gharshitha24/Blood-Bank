@@ -1,0 +1,331 @@
+drop table seeker cascade constraints;
+drop table hospital cascade constraints;
+drop table bloodbank cascade constraints;
+drop table bloodstock cascade constraints;
+drop table request cascade constraints;
+drop table  donor cascade constraints;
+
+
+
+create table seeker
+(
+seeker_id number(3)primary key,
+s_name varchar(10),
+age number(2),
+s_city varchar(20),
+blood_group varchar(20),
+s_phno number(4),
+gender varchar(10),
+reqistration_date date,
+request_id number(5)references request(request_id)
+);
+
+
+
+create table hospital
+(
+hospital_id number(3)primary key,
+h_name varchar(50),
+h_phno number(4),
+h_website varchar(50),
+h_email varchar(50),
+h_city varchar(20),
+bloodbank_id number(5)references bloodbank(bloodbank_id)
+);
+
+
+
+create table bloodbank
+(
+bloodbank_id number(3)primary key,
+bb_name varchar(50),
+bb_address varchar(50),
+bb_phno number(5),
+bb_website varchar(50),
+bb_email varchar(50),
+donor_id number(4)references donor(donor_id),
+request_id number(5)references request(request_id)
+);
+
+
+
+create table bloodstock
+(
+stock_id number(3)primary key,
+bloodgroup varchar(20),
+status varchar(20),
+quantity varchar(50),
+bloodbank_id number(3)references bloodbank(bloodbank_id)
+);
+
+
+
+create table request
+(
+request_id number(6)primary key,
+r_date date,
+member_type varchar(50),
+member_name varchar(20),
+required_blood varchar(20),
+quantity varchar(10),
+r_phno number(5),
+r_location varchar(50)
+);
+
+
+
+create table donor
+(
+donor_id number(4)primary key,
+d_name varchar(10),
+bloodgroup varchar(20),
+last_donotion_date date,
+d_phno number(5),
+d_city varchar(10)
+);
+
+
+
+
+insert into seeker values(501,'ravi',30,'bangalore','b positive',9945,'m','3-9-21',11651);
+insert into seeker values(502,'geetha',29,'bangalore','a positive',9982,'f','1-1-22',11652);
+insert into seeker values(503,'sanjana',28,'hassan','o positive',9984,'f','3-1-22',11653);
+insert into seeker values(504,'sandeep',22,'chitradurga','ab positive',9615,'m','2-9-21',11654);
+insert into seeker values(505,'hari',45,'bangalore','o negative',9922,'m','8-1-22',11655);
+insert into seeker values(506,'rahul',72,'hyderabad','b negative',9617,'m','8-4-19',11656);
+insert into seeker values(507,'kaveri',39,'belgaum','a positive',9999,'f','3-6-21',11657);
+insert into seeker values(508,'suresh',18,'mumbai','b positive',9871,'m','24-9-20',11658);
+insert into seeker values(509,'raju',24,'vizag','ab positive',9953,'m','7-7-18',11659);
+insert into seeker values(510,'seetha',54,'tirupati','ab negative',9348,'f','25-2-21',11660);
+
+
+insert into donor values(1001,'ajay','a positive','2-1-21',66248,'vizag');
+insert into donor values(1002,'siddarath','ab positive','9-10-21',63458,'bangalore');
+insert into donor values(1003,'reshma','o positive','9-11-21',63278,'hubli');
+insert into donor values(1004,'raj','b positive','6-6-21',66248,'hyderabad');
+insert into donor values(1005,'sarah','a positive','2-1-21',66748,'goa');
+insert into donor values(1006,'madhav','a negative','12-5-21',61238,'mumbai');
+insert into donor values(1007,'ravi','o negative','2-11-21',62348,'belgaum');
+insert into donor values(1008,'vinod','b positive','9-11-20',69878,'vizag');
+insert into donor values(1009,'fathima','ab positive','11-12-21',68878,'hyderabad');
+insert into donor values(1010,'neha','ab negative','1-1-22',69778,'goa');
+
+
+insert into request values(11651,'6-6-21','pregancy','aisha','a negative','700 ml',78676,'dharwad');
+insert into request values(11652,'9-8-21','anemia','vijya','o negative','600 ml',78688,'hubli');
+insert into request values(11653,'3-3-21','liver transplatation','raju','ab negative','750 ml',78654,'bangalore');
+insert into request values(11654,'2-1-21','hemophilia','seetha','a positive','800 ml',78900,'tirupati');
+insert into request values(11655,'24-6-21','sickle cell','ravi','o positive','900 ml',78345,'bangalore');
+insert into request values(11656,'31-8-21','pregancy','naina','ab negative','400 ml',78654,'vizay');
+insert into request values(11657,'1-1-22','leukemia','samaira','a positive','800 ml',78000,'goa');
+insert into request values(11658,'9-6-21','kidney transplation','asha','ab positive','500 ml',78122,'mumbai');
+insert into request values(11659,'25-9-21','blood diffusion','vivek','b positive','900 ml',77777,'goa');
+insert into request values(11660,'31-12-21','pregancy','sakshi','a negative','300 ml',73400,'hyderabad');
+
+
+insert into bloodbank values(701,'savelife bloodbank','hubli',87282,'www.savelife.com','savelife@gmail.com',1001,11651);
+insert into bloodbank values(702,'holycross bloodbank','bangalore',89652,'www.holycross.com','holycross@gmail.com',1002,11652);
+insert into bloodbank values(703,'kasturba bloodbank','tirupati',86583,'www.kasturba.com','kasturba@gmail.com',1003,11653);
+insert into bloodbank values(704,'e.s.i bloodbank','vizag',82133,'www.esi.com','esi@gmail.com',1004,11654);
+insert into bloodbank values(705,'public bloodbank','goa',82343,'www.public.com','public@gmail.com',1005,11655);
+insert into bloodbank values(706,'east point bloodbank','hyderabad',83689,'www.eastpoint.com','eastpoint@gmail.com',1006,11656);
+insert into bloodbank values(707,'m.r bloodbank','mumbai',83119,'www.mr.com','mr@gmail.com',1007,11657);
+insert into bloodbank values(708,'kle bloodbank','goa',86549,'www.kle.com','kle@gmail.com',1008,11658);
+insert into bloodbank values(709,'nehru bloodbank','bangalore',85449,'www.nehru.com','nehru@gmail.com',1009,11659);
+insert into bloodbank values(710,'sjm bloodbank','vizag',83459,'www.sjm.com','sjm@gmail.com',1010,11660);
+
+
+
+insert into hospital values(601,'city hospital',9865,'www.cityhospital.com','cityhospital@gmail.com','hubli',701);
+insert into hospital values(602,'sanjeevini hospital',9243,'www.sanjeevinihospital.com','sanjeevinihospital@gmail.com','banglore',702);
+insert into hospital values(603,'kims hospital',9376,'www.kimshospital.com','kimshospital@gmail.com','tirupati',703);
+insert into hospital values(604,'apollo hospital',9865,'www.apollohospital.com','apollohospital@gmail.com','vizay',704);
+insert into hospital values(605,'vijya hospital',9324,'www.vijyahospital.com','vijyahospital@gmail.com','goa',705);
+insert into hospital values(606,'miot hospital',9437,'www.miothospital.com','miothospital@gmail.com','hyderabad',706);
+insert into hospital values(607,'yashoda hospital',9245,'www.yashodahospital.com','yashodahospital@gmail.com','mumbai',707);
+insert into hospital values(608,'fortis hospital',9005,'www.fortishospital.com','fortishospital@gmail.com','goa',708);
+insert into hospital values(609,'kamineni hospital',9965,'www.kaminenihospital.com','kaminenihospital@gmail.com','bangalore',709);
+insert into hospital values(610,'vivekanda hospital',9967,'www.vivekandahospital.com','vivekandahospital@gmail.com','vizag',710);
+
+
+insert into bloodstock values(801,'a positive','available','700 ml',701);
+insert into bloodstock values(802,'b positive','available','800 ml',702);
+insert into bloodstock values(803,'ab positive','available','300 ml',703);
+insert into bloodstock values(804,'o positive','available','900 ml',704);
+insert into bloodstock values(805,'ab negative','not available','0 ml',705);
+insert into bloodstock values(806,'a positive','available','750 ml',706);
+insert into bloodstock values(807,'a negative','not available','0 ml',707);
+insert into bloodstock values(808,'o positive','available','600 ml',708);
+insert into bloodstock values(809,'o negative','not available','0 ml',709);
+insert into bloodstock values(810,'b positive','available','1100 ml',710);
+
+
+
+select * from seeker;
+select * from hospital;
+select * from bloodbank;
+select * from bloodstock;
+select * from request;
+select * from donor;
+
+
+--1.retrive the seeker_id whose request id is 11656
+   select seeker_id
+   from seeker s,request r
+   where s.request_id=r.request_id and r.request_id=11656;
+   
+--2.retrive the hospital_id whose bloodbank_id
+    select hospital_id
+    from hospital h,bloodbank b
+    where h.bloodbank_id=b.bloodbank_id;
+    
+--3.retrive bloodgroup and bloodbank_id whose status is not available
+     select s.bloodgroup,b.bloodbank_id
+     from bloodbank b,bloodstock s
+     where b.bloodbank_id=s.bloodbank_id and s.status='not available';
+     
+--4.retrive bloodbank_id,hospital_id who loctated in bangalore
+    select h.bloodbank_id,h.hospital_id
+    from bloodbank b,hospital h
+    where b.bloodbank_id=h.bloodbank_id and h.h_city='bangalore';
+
+--5.retrive stock_id where bloodbankname is 'savelife bloodbank'
+     select stock_id
+     from bloodstock s,bloodbank b
+     where b.bloodbank_id=s.bloodbank_id and bb_name='savelife bloodbank';
+     
+--6.retrive stock_id whose blood group quantity is maximum and minimum
+     select max(quantity) as "maximum quantity",
+      min(quantity) as "minimum quantity"
+      from bloodstock;
+      
+--7.retrive the member_names whose requested date is between '3-3-21' to '29-11-21'
+     select member_name
+     from request
+     where r_date between '3-3-21' and '29-11-21';
+     
+--8.retrive the seeker_id,s_name whose is between 20 to 35 and female   
+     select seeker_id,s_name
+     from seeker
+     where age BETWEEN 20 and 35 and gender='f';
+     
+--9.retrive request_id,r_name who wants quantity more than 500     
+    select request_id,required_blood
+    from request
+    where quantity>500;
+    
+--10.retrive bloodbank_id whose city is located vizag
+    select bloodbank_id
+    from bloodbank
+    where bb_address='vizag';
+    
+--11.retrive seeker_id,request_id whose count whose blood group is b positive
+      select s.seeker_id,r.request_id,count(blood_group)
+      from seeker s,request r
+      where s.request_id=r.request_id 
+      group by s.seeker_id,r.request_id;
+      
+--12.retrive stock_id and count the blood group
+     select bloodgroup,count(bloodgroup)
+     from bloodstock
+     group by bloodgroup;
+     
+--13.retrive the request_id in descending order
+    select request_id,required_blood,quantity
+    from request
+    order by quantity desc;
+      
+--14.retrive the sum of the required_blood 
+    select sum(quantity)as "total quantity",required_blood
+    from request 
+    group by required_blood;
+    
+--15.retrive the d_name='madav' or blood group ='b positive'
+   select d_name,bloodgroup
+   from donor
+   where d_name='madhav'
+   union
+   select d_name,bloodgroup
+   from donor
+   where bloodgroup='b positive';
+   
+--16.display 2nd highest quantity of request
+    select request_id,member_type,quantity
+    from request
+    where quantity=(select max(quantity) from request
+                     where quantity not in
+                     (select max(quantity) from request));
+--17.retrive the stock-id,bloodgroup whose quantity is minimum
+     select stock_id,quantity
+     from bloodstock
+     where stock_id in (select stock_id
+     from bloodstock where stock_id in (select stock_id
+                                        from bloodstock
+                                        where quantity=(select min(quantity) from bloodstock)));
+                                        
+--18.retrive the hospital_name whose hospital-id is 605 but not in hospital_id is 610
+     select h_name
+     from hospital
+     where hospital_id in(select hospital_id
+                        from hospital
+                        where hospital_id=605) and hospital_id not in
+                                                            (select hospital_id
+                                                            from hospital
+                                                            where hospital_id=610);
+
+--19.retive the request_id whose have same quantity of request_id
+     select request_id,quantity 
+     from request d1
+    where exists(select *
+                 from request d2
+                 where d1.quantity=d2.quantity and  d2.request_id=11654);
+                 
+--20.retrive the seeker_id,s_name,age whose registration_date is not between '11-03-2020' and '11-03-2021
+      select seeker_id,s_name,age,reqistration_date
+      from seeker
+      where reqistration_date not between '11-3-20' and '11-3-21';
+      
+--21.retrive the 3rd highest quantity from bloodstock 
+     select max(quantity)
+     from bloodstock where quantity<>
+      (select max(quantity)
+      from bloodstock
+      where quantity<>(select max(quantity)
+                        from bloodstock));
+                        
+--22.display the bloodbank_id whose has bloodbank_id as 708
+     select distinct bloodbank_id,r.request_id,d.donor_id
+     from bloodbank b,request r,donor d
+     where d.donor_id=b.donor_id and r.request_id=b.request_id and bloodbank_id in
+                                                        (select bloodbank_id
+                                                        from bloodbank b,request r,donor d
+                                                         where d.donor_id=b.donor_id and r.request_id=b.request_id and bloodbank_id=708);
+     
+--23.list the all request_id all required_blood of 'ab negative'
+      select request_id
+      from request
+      where required_blood in(select required_blood
+                              from request 
+                              where required_blood='ab negative');
+                              
+--24 list stock_id all blood group whose is status is available
+      select stock_id,bloodgroup
+      from bloodstock
+      where status in(select status
+                              from bloodstock 
+                              where status='available');
+                              
+                                                          
+--25 retrive the donor name who has blood to bloodbank and retrive name of requester the blood
+     select d_name,bloodbank_id,member_name
+     from donor d,bloodbank b,request r
+     where d.donor_id=b.donor_id and r.request_id=b.request_id and d_name like 'r%';
+     
+                        
+      
+
+
+
+
+
+
